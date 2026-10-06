@@ -1,0 +1,16 @@
+[Unit]
+Description=Activate native infinite notebook canvas after stock unlock
+After=home.mount xochitl.service
+Requires=home.mount
+Wants=xochitl.service
+ConditionPathExists=/home/root/remarkable-infinite-horizontal/selected-release
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /home/root/remarkable-infinite-horizontal/manager.sh boot
+RemainAfterExit=yes
+Restart=no
+TimeoutStartSec=150
+
+[Install]
+WantedBy=multi-user.target

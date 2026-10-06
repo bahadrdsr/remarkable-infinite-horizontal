@@ -1,0 +1,16 @@
+build/
+build-*/
+.cache/
+*.user
+*.canvas
+*.canvas-wal
+*.canvas-shm
+__pycache__/
+.local/
+ui/
+*.so
+*.tar.gz
+*.rm
+*.metadata
+*.content
+*.ini

@@ -1,0 +1,11 @@
+{
+    "device": "tatsu",
+    "architecture": "aarch64",
+    "software": "3.28.0.172",
+    "codex": "5.8.203",
+    "qt": "6.10.3",
+    "hostArchitecture": "x86_64",
+    "installerUrl": "https://storage.googleapis.com/remarkable-codex-toolchain/3.28.0.172/remarkable-production-image-5.8.203-tatsu-public-x86_64-toolchain.sh",
+    "observedInstallerSha256": "3f131c6c989679a3e648ed4325e83b481da55cdb96f5665b413a8fc76b55f10d",
+    "checksumProvenance": "Locally measured after download from the manufacturer's HTTPS SDK index on October 5, 2026; not an independently signed manufacturer checksum."
+}
