@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infinite Canvas for reMarkable Paper Pure</title>
+  <meta name="description" content="Free open-source mod that adds a native horizontal infinite canvas to handwritten notebooks on reMarkable Paper Pure while keeping the stock toolbar, pens, eraser, layers, and sync.">
+  <meta name="keywords" content="reMarkable infinite canvas, Paper Pure infinite canvas, reMarkable mod, horizontal notebook scrolling, mind mapping, e-ink tablet">
+  <link rel="canonical" href="https://bahadrdsr.github.io/remarkable-infinite-horizontal/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Infinite Canvas for reMarkable Paper Pure">
+  <meta property="og:description" content="Use the native reMarkable notebook editor without horizontal page boundaries.">
+  <meta property="og:url" content="https://bahadrdsr.github.io/remarkable-infinite-horizontal/">
+  <meta property="og:image" content="https://bahadrdsr.github.io/remarkable-infinite-horizontal/infinite-horizontal-canvas.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #f7f4ed; color: #27231f; }
+    body { margin: 0; line-height: 1.6; }
+    main { width: min(920px, calc(100% - 40px)); margin: 0 auto; padding: 48px 0 80px; }
+    h1 { font-size: clamp(2.3rem, 7vw, 4.7rem); line-height: 1.03; margin: 24px 0; letter-spacing: -0.04em; }
+    h2 { margin-top: 48px; font-size: 1.8rem; }
+    .lead { font-size: 1.25rem; max-width: 760px; }
+    .hero { width: 100%; border-radius: 18px; margin: 28px 0; border: 1px solid #cfc8bd; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0; }
+    .button { display: inline-block; padding: 12px 18px; border-radius: 9px; background: #27231f; color: #fff; text-decoration: none; font-weight: 700; }
+    .button.secondary { background: #fff; color: #27231f; border: 1px solid #8e857a; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+    .card { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #d8d1c7; }
+    code { background: #e9e4db; padding: 2px 5px; border-radius: 4px; }
+    footer { margin-top: 60px; color: #655d54; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "reMarkable Infinite Horizontal",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "reMarkable OS 3.28.0.172 on Paper Pure",
+    "description": "Open-source native horizontal infinite canvas mod for handwritten notebooks on reMarkable Paper Pure.",
+    "url": "https://bahadrdsr.github.io/remarkable-infinite-horizontal/",
+    "downloadUrl": "https://github.com/bahadrdsr/remarkable-infinite-horizontal/releases/latest",
+    "license": "https://opensource.org/license/mit",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does reMarkable Paper Pure have an infinite canvas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The stock notebook editor does not. This open-source mod adds native horizontal expansion to handwritten notebooks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the mod keep the normal reMarkable writing tools?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. It uses the stock notebook editor, toolbar, pens, eraser, selection, layers, undo and redo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can infinite canvas be disabled for one notebook?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the global Display setting or override an individual handwritten notebook from Notebook settings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which reMarkable tablet is supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The current release supports only reMarkable Paper Pure software 3.28.0.172."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<main>
+  <p><strong>Free and open source</strong></p>
+  <h1>Infinite canvas for reMarkable Paper Pure</h1>
+  <p class="lead">Pan horizontally beyond notebook page edges while keeping the native reMarkable toolbar, pens, eraser, selection, layers, undo/redo, notebook storage, and cloud sync.</p>
+  <img class="hero" src="infinite-horizontal-canvas.svg" alt="A handwritten mind map extending horizontally beyond a reMarkable Paper Pure notebook">
+  <div class="actions">
+    <a class="button" href="https://github.com/bahadrdsr/remarkable-infinite-horizontal">Download from GitHub</a>
+    <a class="button secondary" href="https://github.com/bahadrdsr/remarkable-infinite-horizontal/blob/main/docs/WINDOWS-QUICKSTART.md">Windows quick start</a>
+  </div>
+
+  <h2>What it changes</h2>
+  <div class="grid">
+    <section class="card"><h3>Native writing</h3><p>This is not a separate drawing app. It uses the stock notebook editor and native ink pipeline.</p></section>
+    <section class="card"><h3>No horizontal boundary</h3><p>Two-finger panning continues beyond the original notebook width without creating another page.</p></section>
+    <section class="card"><h3>Per-notebook control</h3><p>Choose a global default, then override individual notebooks as infinite or normally paged.</p></section>
+  </div>
+
+  <h2>Compatibility</h2>
+  <p>Currently tested only on <strong>reMarkable Paper Pure</strong> software <code>3.28.0.172</code>. The installer rejects unsupported devices and firmware.</p>
+
+  <h2>Does reMarkable have an infinite canvas?</h2>
+  <p>The stock Paper Pure notebook editor does not provide an all-direction infinite canvas. This project adds native horizontal expansion for handwritten notebooks. Marks outside the original width survive editor restarts and tablet reboots.</p>
+
+  <h2>Is it safe?</h2>
+  <p>It is unofficial software and requires developer mode. The project verifies exact firmware resources, keeps document sync active, takes native backups, and returns to stock automatically after failed activation. Users should still prepare the official recovery process and verify their backups first.</p>
+
+  <footer>
+    <p>Independent project, not affiliated with or endorsed by reMarkable AS. MIT-licensed project source.</p>
+  </footer>
+</main>
+</body>
+</html>

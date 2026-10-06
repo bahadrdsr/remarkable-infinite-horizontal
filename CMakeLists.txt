@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(RemarkableInfiniteHorizontal VERSION 0.1.0 LANGUAGES CXX)
+project(RemarkableInfiniteHorizontal VERSION 0.2.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -71,5 +71,7 @@ if(BUILD_TESTING)
         add_test(NAME runtime_verifier_tests COMMAND "${Python3_EXECUTABLE}"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/verify_runtime_test.py"
             "$<TARGET_FILE:infinite-verify>")
+        add_test(NAME site_tests COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_site.py")
     endif()
 endif()

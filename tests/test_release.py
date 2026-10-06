@@ -55,6 +55,66 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             device.uninstall()
 
+    def test_guided_setup_requires_all_approvals_before_device_access(self):
+        device = object.__new__(InfiniteHorizontal)
+        device.run = lambda command: self.fail("No device command should run")
+        with self.assertRaises(ValueError):
+            device.setup()
+        with self.assertRaises(ValueError):
+            device.setup(approved=True, enable_autostart=True)
+
+    def test_guided_setup_runs_capture_patch_install_and_autostart(self):
+        class FakeSetup(InfiniteHorizontal):
+            def __init__(self, inspection):
+                self.calls = []
+                self.inspection = inspection
+
+            def install(self, patch_directory=None):
+                self.calls.append(("install", patch_directory))
+                return "capture-release" if patch_directory is None else "patch-release"
+
+            def start(self, approved=False):
+                self.calls.append(("start", approved))
+                return ("capture-release", "a" * 32) if len(
+                    [call for call in self.calls if call[0] == "start"]) == 1 else (
+                    "patch-release", "b" * 32)
+
+            def collect(self, token):
+                self.calls.append(("collect", token))
+                return self.inspection
+
+            def stop(self):
+                self.calls.append(("stop",))
+
+            def wait_for_transition(self):
+                self.calls.append(("wait",))
+
+            def boot(self, enabled, approved=False):
+                self.calls.append(("boot", enabled, approved))
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            inspection = root / "inspection"
+            inspection.mkdir()
+            local = root / "local"
+            device = FakeSetup(inspection)
+
+            def fake_build(_inspection, output):
+                output.mkdir(parents=True)
+                return output
+
+            with patch("infinite_horizontal.LOCAL", local), \
+                 patch("infinite_horizontal.build", fake_build):
+                result = device.setup(
+                    approved=True, enable_autostart=True, approve_root_change=True)
+
+            self.assertEqual(result["release"], "patch-release")
+            self.assertTrue(result["autostart"])
+            self.assertEqual([call[0] for call in device.calls], [
+                "install", "start", "collect", "stop", "wait",
+                "install", "start", "boot",
+            ])
+
     def test_runtime_verifier_accepts_exact_six_resource_index(self):
         if os.name == "nt":
             self.skipTest("The Linux verifier is exercised inside CTest/WSL.")

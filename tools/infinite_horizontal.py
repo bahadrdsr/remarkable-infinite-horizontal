@@ -17,7 +17,7 @@ import urllib.request
 
 import paramiko
 from device import Device, ROOT
-from build_native_patch import RESOURCES
+from build_native_patch import RESOURCES, build
 
 BASE = "/home/root/remarkable-infinite-horizontal"
 MARKER = b"remarkable-infinite-horizontal v1\n"
@@ -233,6 +233,42 @@ class InfiniteHorizontal(Device):
         ]), timeout=140)
         return self.status()
 
+    def wait_for_transition(self):
+        output = self.run(
+            f"test -f {BASE}/state/last-transition && cat {BASE}/state/last-transition || echo 0")
+        timestamp = int(output.split()[0])
+        remaining = max(0, 181 - (int(time.time()) - timestamp))
+        while remaining > 0:
+            print(f"Waiting for the tablet safety interval: {remaining} seconds", flush=True)
+            time.sleep(min(15, remaining))
+            self.run("true")
+            remaining = max(0, 181 - (int(time.time()) - timestamp))
+
+    def setup(self, approved=False, enable_autostart=False, approve_root_change=False):
+        if not approved:
+            raise ValueError("Setup requires --approve-shutdown-guard.")
+        if enable_autostart and not approve_root_change:
+            raise ValueError("Automatic startup requires --approve-root-change.")
+        capture_release = self.install()
+        _, inspection = self.start(approved=True)
+        try:
+            inspection_path = self.collect(inspection)
+        finally:
+            self.stop()
+        patch_path = LOCAL / "patches" / inspection
+        build(inspection_path, patch_path)
+        self.wait_for_transition()
+        release = self.install(patch_path)
+        self.start(approved=True)
+        if enable_autostart:
+            self.boot(True, approved=True)
+        return {
+            "release": release,
+            "inspection": inspection,
+            "patch": str(patch_path),
+            "autostart": enable_autostart,
+        }
+
     def status(self):
         return self.run(f"sh {BASE}/manager.sh status")
 
@@ -314,13 +350,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=[
         "identify", "capture", "install", "start", "stop", "status", "collect",
-        "enable-autostart", "disable-autostart", "uninstall",
+        "enable-autostart", "disable-autostart", "uninstall", "setup",
     ])
     parser.add_argument("--host", default="10.11.99.1")
     parser.add_argument("--patch", type=Path)
     parser.add_argument("--inspection")
     parser.add_argument("--approve-shutdown-guard", action="store_true")
     parser.add_argument("--approve-root-change", action="store_true")
+    parser.add_argument("--enable-autostart", action="store_true")
     options = parser.parse_args()
     if options.action == "install" and options.patch is None:
         parser.error("install requires --patch")
@@ -347,6 +384,12 @@ def main():
             print(device.status())
         elif options.action == "collect":
             print(device.collect(options.inspection))
+        elif options.action == "setup":
+            print(json.dumps(device.setup(
+                approved=options.approve_shutdown_guard,
+                enable_autostart=options.enable_autostart,
+                approve_root_change=options.approve_root_change,
+            ), indent=2))
         elif options.action == "uninstall":
             print(device.uninstall(options.approve_root_change))
         else:

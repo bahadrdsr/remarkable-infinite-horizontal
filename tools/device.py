@@ -19,6 +19,7 @@ class Device:
                 allow_agent=password is None, look_for_keys=password is None,
                 timeout=10, banner_timeout=10, auth_timeout=10,
             )
+            self.client.get_transport().set_keepalive(20)
         except (OSError, paramiko.SSHException):
             self.client.close()
             raise

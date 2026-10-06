@@ -1,8 +1,38 @@
-# reMarkable Infinite Horizontal
+# Infinite Canvas for reMarkable Paper Pure
 
-Native horizontal infinite canvas for handwritten notebooks on reMarkable Paper Pure.
+[![CI](https://github.com/bahadrdsr/remarkable-infinite-horizontal/actions/workflows/ci.yml/badge.svg)](https://github.com/bahadrdsr/remarkable-infinite-horizontal/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/bahadrdsr/remarkable-infinite-horizontal)](https://github.com/bahadrdsr/remarkable-infinite-horizontal/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+![A handwritten mind map extending horizontally beyond a reMarkable Paper Pure notebook](docs/images/infinite-horizontal-canvas.svg)
+
+Add a native horizontal infinite canvas to handwritten notebooks on **reMarkable Paper Pure**. This open-source reMarkable mod keeps the normal notebook toolbar, pens, eraser, selection, layers, undo/redo, storage, and cloud sync.
 
 The project keeps the stock notebook editor, toolbar, pens, eraser, selection, layers, undo/redo, storage, and document sync. It removes the horizontal paper boundary for handwritten notebook pages and prevents horizontal page-swipe/new-page gestures from competing with canvas panning.
+
+## Beginner Windows installation
+
+This is still an unofficial modification, but you do not need to understand C++, Qt, Xovi, or the reMarkable document format.
+
+You need:
+
+- a reMarkable Paper Pure on software `3.28.0.172`;
+- developer mode already enabled;
+- a verified notebook backup;
+- Windows 11 with Ubuntu WSL and Python installed;
+- the tablet awake, unlocked, and connected over USB.
+
+Then open PowerShell in the project folder and run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\Easy-Install.ps1
+```
+
+The guided installer checks prerequisites, downloads the exact official SDK, builds and tests the project, collects the matching tablet resources, installs the mod, and enables guarded startup after reboot. It asks for the tablet SSH password interactively.
+
+See the [Windows quick start](docs/WINDOWS-QUICKSTART.md) for step-by-step instructions and plain-language troubleshooting.
+
+Project website: [Infinite Canvas for reMarkable Paper Pure](https://bahadrdsr.github.io/remarkable-infinite-horizontal/)
 
 ## Features
 
@@ -70,6 +100,40 @@ To override one notebook:
 4. Tap the native **Save** button.
 
 The global and per-notebook settings persist across editor restarts and tablet reboots.
+
+## Frequently asked questions
+
+### Does reMarkable Paper Pure have an infinite canvas?
+
+Not in the stock notebook editor. This project adds horizontally unbounded panning to native handwritten notebooks while retaining the original writing tools and notebook data.
+
+### Is this a separate drawing app?
+
+No. It modifies the native reMarkable notebook interface at runtime. Writing latency and tool behavior remain native.
+
+### Does handwriting outside the original page width survive a restart?
+
+Yes. It was verified across notebook close/reopen, a full editor restart, and tablet reboot.
+
+### What happens to horizontal page swipes?
+
+They are disabled while infinite mode is active so they do not open the new-page prompt. Turn infinite mode off globally or for one notebook to restore normal page swipes.
+
+### Can I enable it for only one notebook?
+
+Yes. The global default is in Display settings. Every handwritten notebook can override it from Notebook settings.
+
+### Does it change PDFs and ebooks?
+
+No. PDFs and ebooks keep their normal behavior.
+
+### Does it work on reMarkable 1, reMarkable 2, Paper Pro, or Paper Pro Move?
+
+Not currently. Only Paper Pure software `3.28.0.172` is accepted. Unsupported devices and versions are rejected before installation.
+
+### Can I remove it?
+
+Yes. You can disable the feature from Settings, return the current editor to stock, disable automatic startup, or uninstall completely. See [Recovery and removal](docs/RECOVERY.md).
 
 ## Safety and recovery
 

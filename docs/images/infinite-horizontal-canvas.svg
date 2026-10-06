@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Infinite horizontal canvas for reMarkable Paper Pure</title>
+  <desc id="description">A handwritten mind map extending beyond the left and right edges of a reMarkable Paper Pure notebook.</desc>
+  <rect width="1200" height="630" fill="#f7f4ed"/>
+  <rect x="118" y="70" width="964" height="490" rx="24" fill="#fff" stroke="#27231f" stroke-width="8"/>
+  <path d="M90 315h1020" stroke="#b8b0a5" stroke-width="3" stroke-dasharray="12 14"/>
+  <g fill="none" stroke="#27231f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M270 315c90-120 170-120 250-30s165 90 250-15 165-105 245 5"/>
+    <rect x="197" y="255" width="170" height="84" rx="18"/>
+    <rect x="493" y="238" width="218" height="92" rx="18"/>
+    <rect x="822" y="242" width="205" height="88" rx="18"/>
+    <path d="M118 315H35m1047 0h83"/>
+    <path d="M55 288l-28 27 28 27m1090-54 28 27-28 27"/>
+  </g>
+  <g fill="#27231f" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="600" y="135" font-size="54" font-weight="700">Infinite Canvas for reMarkable Paper Pure</text>
+    <text x="282" y="307" font-size="25">Idea</text>
+    <text x="602" y="294" font-size="25">Native notebook tools</text>
+    <text x="924" y="294" font-size="25">Keep exploring</text>
+    <text x="600" y="505" font-size="30">Pan horizontally without page boundaries</text>
+  </g>
+</svg>

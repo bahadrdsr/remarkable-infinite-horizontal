@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a problem with installation, startup, settings, or notebook behavior.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include SSH passwords, notebook files, private screenshots, account data, or unfiltered tablet logs.
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where did the problem happen?
+      options:
+        - Guided Windows installer
+        - Manual installation
+        - Tablet startup
+        - Global setting
+        - Per-notebook setting
+        - Notebook panning or writing
+        - Disable, recovery, or uninstall
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Tablet software version
+      placeholder: "3.28.0.172"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: safe_logs
+    attributes:
+      label: Sanitized error text
+      description: Remove credentials, document names, IDs, and account information.
